@@ -1,8 +1,10 @@
-from matplotlib.patches import Rectangle
-from typing import Any
-from pathlib import Path
-import matplotlib.pyplot as plt
 import json
+from pathlib import Path
+from typing import Any
+
+import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle
+from torch import Tensor
 
 
 class Visualizer:
@@ -10,12 +12,12 @@ class Visualizer:
         self.label_file = self._get_label_def(label_def_file)
         self.output_path = output_path
 
-    def _get_label_def(self, file_path: str) -> dict[int, str]:
+    def _get_label_def(self, file_path: str) -> dict[str, str]:
         with open(file_path, "r") as f:
             label_def = json.load(f)
         return label_def
 
-    def _extract_bbox(self, box: list[float]) -> tuple[float]:
+    def _extract_bbox(self, box: list[Tensor]) -> tuple[float, float, float, float]:
         x1, y1, x2, y2 = box[0], box[1], box[2], box[3]
         bl_x = ((x1 + x2) / 2).detach().numpy()
         bl_y = ((y1 + y2) / 2).detach().numpy()

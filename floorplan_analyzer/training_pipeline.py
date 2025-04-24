@@ -1,13 +1,13 @@
-from floorplan_analyzer.config.settings import TrainerConfig
-from torch.utils.data import DataLoader
-from torch.optim import Adam
-from torch.nn import Module
-from typing import List
-from PIL import Image
-import torch
 import logging
-import numpy as np
+from typing import Any
+
+import torch
+from torch.nn import Module
+from torch.optim import Adam
+from torch.utils.data import DataLoader
 from tqdm import tqdm
+
+from floorplan_analyzer.config.settings import TrainerConfig
 
 
 class TrainingPipeline:
@@ -21,13 +21,12 @@ class TrainingPipeline:
     def _save_model(self) -> None:
         torch.save(self.model, self.config.model_output_path)
 
-    def train(self, data) -> None:
+    def train(self, data: Any) -> None:
         logging.info("Starting model training...")
 
         data_loader = DataLoader(data, batch_size=self.config.batch_size, shuffle=True)
 
         self.model.train()
-
         for epoch in tqdm(range(self.config.total_epochs)):
             for idx, batch in enumerate(data_loader):
 

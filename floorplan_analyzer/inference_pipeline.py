@@ -1,9 +1,11 @@
+from typing import Any, List
+
+from PIL import Image
+from torch.nn import Module
+from torchvision import transforms
+
 from floorplan_analyzer.config.settings import InferenceConfig
 from floorplan_analyzer.visualizer import Visualizer
-from torchvision import transforms
-from torch.nn import Module
-from PIL import Image
-from typing import List
 
 
 class InferencePipeline:
@@ -14,25 +16,14 @@ class InferencePipeline:
         self.visualizer = Visualizer(
             self.config.label_def_file, self.config.results_output_path
         )
-        self.results = []
+        self.results: list[dict[str, Any]] = []
 
     def _save_results(self) -> None:
-        """
-        saves the model results for an image
-
-        """
         for pred in self.results:
             if self.config.visualize:
                 self.visualizer.visualize(pred)
 
     def predict(self, input: List[Image.Image]) -> None:
-        """
-        runs inferencing on a set of images
-
-        args:
-        - input: list of Pillow images
-
-        """
         self.model.eval()
 
         for image_data in input:

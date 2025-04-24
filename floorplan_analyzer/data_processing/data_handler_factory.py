@@ -1,10 +1,11 @@
-from floorplan_analyzer.data_processing.handlers.pdf_handler import PDFHandler
-from floorplan_analyzer.data_processing.handlers.image_handler import ImageHandler
 from typing import Any
+
+from floorplan_analyzer.data_processing.handlers.image_handler import ImageHandler
+from floorplan_analyzer.data_processing.handlers.pdf_handler import PDFHandler
 
 
 class DataHandlerFactory:
-    def __init__(self):
+    def __init__(self) -> None:
         self.data_handlers = {
             "pdf": PDFHandler,
             "png": ImageHandler,
