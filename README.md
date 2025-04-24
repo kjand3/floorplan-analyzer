@@ -28,13 +28,13 @@ The command line version of this tool gives the user more flexibility and contro
 
 
 ```
-python main.py --mode "train"
+python main.py --mode "train" --data_path data/train/floorplans/
 ```
 
 In order to run the inference mode the following command:
 
 ```
-python main.py --mode "inference"
+python main.py --mode "inference" --data_path data/inference/3D/
 ```
 
 
