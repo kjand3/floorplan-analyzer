@@ -14,6 +14,9 @@ class Visualizer:
         self.output_path = output_path
 
     def _get_label_mapping(self, file_path: str) -> dict[str, str]:
+        """
+        extract mappings from int to object label
+        """
         try:
             # load label mapping from json
             with open(file_path, "r") as f:
@@ -24,13 +27,18 @@ class Visualizer:
             return {}
 
     def _extract_bbox(self, box: Tensor) -> tuple[float, float, float, float]:
-        # extract bounding box coordinates
+        """
+        extract bounding box coordinates
+        """
         x1, y1, x2, y2 = box.detach().numpy()
         width = x2 - x1
         height = y2 - y1
         return x1, y1, width, height
 
     def visualize(self, result: dict[str, Any]) -> None:
+        """
+        plot detection bounding boxes and labels
+        """
         fig, ax = plt.subplots()
         ax.set_axis_off()
         ax.imshow(result["image"])

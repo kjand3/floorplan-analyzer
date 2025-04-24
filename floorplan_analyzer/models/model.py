@@ -23,8 +23,9 @@ class Model(Module):
         self.model = fasterrcnn_resnet50_fpn(weights=self.weights)
 
     def load_weights(self, model_path: str | None) -> Module:
-
-        # load pretrained weights
+        """
+        load pretrained weights
+        """
         if model_path is not None:
             self.model = torch.load(model_path, weights_only=False)
         return self.model
@@ -32,8 +33,9 @@ class Model(Module):
     def forward(
         self, input: List[Image.Image], target: dict[str, Any] | None = None
     ) -> List[torch.Tensor]:
-
-        # define forward method based on model mode
+        """
+        define forward method based on model mode
+        """
         if self.model.training:
             return self.model(input, target)
 

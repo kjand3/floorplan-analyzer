@@ -19,10 +19,17 @@ class InferencePipeline:
         )
 
     def _save_results(self) -> None:
+        """
+        save inference object detection and
+        classification results
+        """
         for pred in self.results:
             self.visualizer.visualize(pred)
 
     def predict(self, input: List[Image.Image]) -> None:
+        """
+        extract objects and their labels from images
+        """
         self.model.eval()
 
         # inference on each input image

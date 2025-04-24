@@ -13,6 +13,9 @@ class DataHandlerFactory:
         }
 
     def get_handler(self, filetype: str) -> Any:
+        """
+        extract the file handler based on file type
+        """
         if filetype not in self.data_handlers:
             raise ValueError(f"Data processing for {filetype} is not yet supported...")
 

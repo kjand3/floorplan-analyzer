@@ -15,17 +15,25 @@ class DataManager:
         self.config = config
 
     def _extract_file_formats(self) -> dict[str, list[str]]:
+        """
+        extract the file formats from raw data
+        """
         raw_files = defaultdict(list)
         data_path = Path(self.config.raw_data_path)
 
         for file in glob.glob(str(data_path) + "/*"):
             ext = file.split(".")[-1]
             raw_files[ext].append(file)
+
         return raw_files
 
     def process(self, mode: str) -> Any:
+        """
+        process raw data for model usage
+        """
         raw_files = self._extract_file_formats()
         dataset = []
+
         for file_format in raw_files:
             raw_data = raw_files[file_format]
             handler = self.factory.get_handler(file_format)

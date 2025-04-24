@@ -10,11 +10,13 @@ from floorplan_analyzer.data_processing.handlers.base_data_handler import (
 
 
 class PDFHandler(BaseDataHandler):
-
     def process(self, data: list[dict[str, Any]]) -> list[Image.Image]:
+        """
+        process pdf data (.pdf)
+        """
         logging.info("Processing pdf data...")
-
         processed_data = []
+
         for file in data:
             pdf_doc = fitz.open(file)
             for page in pdf_doc:
@@ -22,4 +24,5 @@ class PDFHandler(BaseDataHandler):
                 processed_data.append(
                     {"filename": file, "image": pdf_pixmap.pil_image()}
                 )
+
         return processed_data

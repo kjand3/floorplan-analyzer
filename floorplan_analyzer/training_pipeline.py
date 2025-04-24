@@ -19,6 +19,9 @@ class TrainingPipeline:
         )
 
     def _save_model(self) -> None:
+        """
+        save trained model
+        """
         try:
             torch.save(self.model, self.config.model_output_path)
         except Exception as e:
@@ -26,6 +29,10 @@ class TrainingPipeline:
             raise
 
     def train(self, data: Any) -> None:
+        """
+        train model with specified parameters
+        """
+
         logging.info("Starting model training...")
 
         data_loader = DataLoader(data, batch_size=self.config.batch_size, shuffle=True)

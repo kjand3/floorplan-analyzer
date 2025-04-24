@@ -11,11 +11,13 @@ from floorplan_analyzer.data_processing.handlers.base_data_handler import (
 
 
 class ImageHandler(BaseDataHandler):
-
     def process(self, data: list[dict[str, Any]]) -> list[Image.Image]:
+        """
+        process image data (.png and .jpg)
+        """
         logging.info("Processing image data...")
-
         processed_data = []
+
         for file in data:
             image = Image.open(file)
             if image.mode != "RGB":
