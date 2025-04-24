@@ -5,7 +5,7 @@ from torch.nn import Module
 from torchvision import transforms
 
 from floorplan_analyzer.config.settings import InferenceConfig
-from floorplan_analyzer.visualizer import Visualizer
+from floorplan_analyzer.visualizer.visualizer import Visualizer
 
 
 class InferencePipeline:
@@ -13,19 +13,19 @@ class InferencePipeline:
         self.config = config
         self.model = model
         self.image_to_tensor = transforms.ToTensor()
-        self.visualizer = Visualizer(
-            self.config.label_def_file, self.config.results_output_path
-        )
         self.results: list[dict[str, Any]] = []
+        self.visualizer = Visualizer(
+            self.config.label_mapping_file, self.config.results_output_path
+        )
 
     def _save_results(self) -> None:
         for pred in self.results:
-            if self.config.visualize:
-                self.visualizer.visualize(pred)
+            self.visualizer.visualize(pred)
 
     def predict(self, input: List[Image.Image]) -> None:
         self.model.eval()
 
+        # inference on each input image
         for image_data in input:
             image_tensor = self.image_to_tensor(image_data["image"])
             output = self.model.forward([image_tensor])
@@ -37,4 +37,5 @@ class InferencePipeline:
                 }
             )
 
+        # save prediction results
         self._save_results()

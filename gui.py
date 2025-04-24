@@ -1,13 +1,15 @@
-from floorplan_analyzer.config.settings import settings
-from PIL import Image
-from main import run
-from pathlib import Path
-import streamlit as st
 import glob
 import os
 import shutil
+from pathlib import Path
 
-### This script was developed with the help of ChatGPT ###
+import streamlit as st
+from PIL import Image
+
+from floorplan_analyzer.config.settings import settings
+from main import run
+
+# This script was developed with the help of ChatGPT #
 
 st.set_page_config(page_title="Floorplan Analyzer Tool", layout="centered")
 st.title("Floorplan Analyzer Tool")
@@ -20,7 +22,6 @@ uploaded_files = st.file_uploader(
 
 user_temp_dir = Path("user_temp")
 user_temp_dir.mkdir(exist_ok=True)
-settings.mode = "inference"
 
 if uploaded_files:
     st.success(f"{len(uploaded_files)} file(s) uploaded.")
@@ -32,8 +33,8 @@ if uploaded_files:
     if st.button("Run Inference"):
         with st.spinner("Running model inference..."):
             try:
-                run("user_temp/")
-                st.success("✅ Inference completed!")
+                run("inference", "user_temp/")
+                st.success("Inference completed!")
                 st.write("### Output:")
                 result_path = settings.inference_config.results_output_path
                 for file in glob.glob(result_path + "/*"):

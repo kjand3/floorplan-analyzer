@@ -19,7 +19,11 @@ class TrainingPipeline:
         )
 
     def _save_model(self) -> None:
-        torch.save(self.model, self.config.model_output_path)
+        try:
+            torch.save(self.model, self.config.model_output_path)
+        except Exception as e:
+            logging.error(f"Failed to save trained model: {e}")
+            raise
 
     def train(self, data: Any) -> None:
         logging.info("Starting model training...")

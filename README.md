@@ -4,32 +4,41 @@
 
 To run this tool begin by running the following command:
 
-''' 
+```
 make setup
+```
 
-'''
+This should install all of your dependencies. To activate your environment, run the
+following command:
 
-This should install all of your dependencies and activate your environment.
+```
+source venv/bin/activate
+```
 
 
-# Running the Tool
+# Running the Library
 
-There are two ways to run the tool, via the command line and from the streamlit GUI.
+There are two ways to run the library:
+- Command Line
+- Streamlit GUI.
 
 
 ## Command Line
 The command line version of this tool gives the user more flexibility and control on the model. This form of the tool also exposes a training mode so the user can use their data to continue making improvments on the model. Running the train mode requires the following command:
 
 
-'''
-python main.py 
+```
+python main.py --mode "train"
+```
 
-'''
+In order to run the inference mode the following command:
 
-and making the adjustment in the floorplan_analyzer/config/settings.py to the TRAIN mode.
+```
+python main.py --mode "inference"
+```
 
 
-In order to run the inference mode the same command can be run with the change in the config file to the appropriate mode. 
+There is also an additional ```--data_path``` flag that can be passed to ```main.py``` for either mode.
 
 
 
@@ -38,8 +47,8 @@ In order to run the inference mode the same command can be run with the change i
 To run the streamlit GUI, use the following command:
 
 '''
-streamlit run gui.py 
+streamlit run gui.py
 
 '''
 
-This command will spin up your GUI. From there, you can select files from your local directory to inference your model with. 
+This command will spin up your GUI. From there, you can select files from your local directory to inference your model with.

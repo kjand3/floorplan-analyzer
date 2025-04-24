@@ -1,12 +1,14 @@
-from floorplan_analyzer.config.settings import ModelConfig
-from torchvision.models.detection import (
-    fasterrcnn_resnet50_fpn,
-    FasterRCNN_ResNet50_FPN_Weights,
-)
-from torch.nn import Module
-from typing import List, Any
-from PIL import Image
+from typing import Any, List
+
 import torch
+from PIL import Image
+from torch.nn import Module
+from torchvision.models.detection import (
+    FasterRCNN_ResNet50_FPN_Weights,
+    fasterrcnn_resnet50_fpn,
+)
+
+from floorplan_analyzer.config.settings import ModelConfig
 
 
 class Model(Module):
@@ -20,33 +22,18 @@ class Model(Module):
 
         self.model = fasterrcnn_resnet50_fpn(weights=self.weights)
 
-    def load_weights(self, model_path: str) -> Module:
-        """
-        load the weights into the model for inferencing
+    def load_weights(self, model_path: str | None) -> Module:
 
-        args:
-        - model_path: path where model is stored
-        returns:
-        - loaded torch model
-
-        """
-        if model_path is None:
-            return self.model
-        else:
+        # load pretrained weights
+        if model_path is not None:
             self.model = torch.load(model_path, weights_only=False)
-            # self.model = self.model.load_state_dict(state_dict)
-            return self.model
+        return self.model
 
-    def forward(self, input: List[Image.Image], target=None) -> List[torch.Tensor]:
-        """
-        forward pass through the model
+    def forward(
+        self, input: List[Image.Image], target: dict[str, Any] | None = None
+    ) -> List[torch.Tensor]:
 
-        args:
-        - input: list of pillow images
-        returns:
-        - model output
-
-        """
+        # define forward method based on model mode
         if self.model.training:
             return self.model(input, target)
 
