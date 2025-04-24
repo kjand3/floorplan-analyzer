@@ -60,6 +60,8 @@ streamlit run gui.py
 
 
 This command will spin up your GUI. From there, you can select files from your local directory to inference your model with.
+If you would like the GUI to only display your new image inference, make sure to select ```Cleanup & Reset``` at the end 
+of each run.
 
 
 # Datasets
