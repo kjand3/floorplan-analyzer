@@ -2,7 +2,7 @@ format:
 		black .
 
 
-lint: 
+lint:
 		black --check .
 
 
@@ -39,3 +39,8 @@ setup:
 	@echo "Activating virtual environment and installing requirements..."
 	@. venv/bin/activate && pip install --upgrade pip && pip install -e ."[dev]"
 	@echo "Setup complete ..."
+
+
+install-pre-commit:
+	pip install pre-commit
+	pre-commit install --install-hooks
