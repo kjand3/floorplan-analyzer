@@ -11,7 +11,10 @@ def generate_data() -> None:
     response = client.responses.create(
         model="gpt-4.1",
         input=[
-            {"role": "user", "content": "what teams are playing in this image?"},
+            {
+                "role": "user",
+                "content": "Can you identify the objects in this floorplan?",
+            },
             {"role": "user", "content": [{"type": "input_image", "image_url": ""}]},
         ],
     )

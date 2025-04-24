@@ -9,31 +9,34 @@ from PIL import Image
 from floorplan_analyzer.config.settings import settings
 from main import run
 
-# This script was developed with the help of ChatGPT #
-
+# This script was developed with the help of ChatGPT
 st.set_page_config(page_title="Floorplan Analyzer Tool", layout="centered")
 st.title("Floorplan Analyzer Tool")
 st.image(Image.open("logo.png"))
 
 
+# Show user input file options
 uploaded_files = st.file_uploader(
     "Choose file(s) to upload", accept_multiple_files=True, type=["pdf", "jpg", "png"]
 )
 
+
+# Create temporary directories to show results
 user_temp_dir = Path("user_temp")
 user_temp_dir.mkdir(exist_ok=True)
 
+
+# inference the floor plan analyzer after files are uploaded
 if uploaded_files:
     st.success(f"{len(uploaded_files)} file(s) uploaded.")
     for uploaded_file in uploaded_files:
         save_path = os.path.join(user_temp_dir, uploaded_file.name)
         with open(save_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
-
     if st.button("Run Inference"):
         with st.spinner("Running model inference..."):
             try:
-                run("inference", "user_temp/")
+                run(settings)
                 st.success("Inference completed!")
                 st.write("### Output:")
                 result_path = settings.inference_config.results_output_path

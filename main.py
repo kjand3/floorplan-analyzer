@@ -1,7 +1,9 @@
 import argparse
 import logging
 
-from floorplan_analyzer.config.settings import ModeEnum, settings
+import yaml
+
+from floorplan_analyzer.config.settings import ModeEnum, Settings, settings
 from floorplan_analyzer.data_processing.data_manager import DataManager
 from floorplan_analyzer.inference_pipeline import InferencePipeline
 from floorplan_analyzer.models.model import Model
@@ -10,13 +12,7 @@ from floorplan_analyzer.training_pipeline import TrainingPipeline
 logging.basicConfig(level=logging.INFO)
 
 
-def run(mode: str | None = None, data_path: str | None = None) -> None:
-
-    # Configure run from command line args
-    if data_path is not None:
-        settings.data_config.raw_data_path = data_path
-    if mode is not None:
-        settings.mode = ModeEnum(mode)
+def run(settings: Settings) -> None:
 
     # Initialize model
     model = Model(settings.mod_config)
@@ -46,10 +42,22 @@ def run(mode: str | None = None, data_path: str | None = None) -> None:
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(prog="Floorplan Analyzer")
     parser.add_argument("--data_path", type=str, help="Data path for model inferencing")
     parser.add_argument("--mode", type=str, help="Mode for running tool")
-
+    parser.add_argument("--config", type=str, help="Configuration for model execution")
     args = parser.parse_args()
-    run(args.mode, args.data_path)
+
+    # Configure run from command line args
+    if args.config is not None:
+        logging.info("Configuration file was passed all other flags will be ignored...")
+        with open(args.config, "r") as f:
+            yaml_config = yaml.safe_load(f)
+        custom_settings = Settings(**yaml_config)
+        run(custom_settings)
+    else:
+        if args.data_path is not None:
+            settings.data_config.raw_data_path = args.data_path
+        if args.mode is not None:
+            settings.mode = ModeEnum(args.mode)
+        run(settings)

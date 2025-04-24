@@ -30,7 +30,6 @@ class DataConfig(BaseSettings):
 # ------------------------
 class ModelConfig(BaseSettings):
     pretrained: bool = Field(default=True, description="Pretrained weights for model")
-    model_name: str = Field(default="fasterrcnn", description="Model name")
 
 
 # ------------------------

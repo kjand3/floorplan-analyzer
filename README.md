@@ -38,8 +38,16 @@ python main.py --mode "inference"
 ```
 
 
-There is also an additional ```--data_path``` flag that can be passed to ```main.py``` for either mode.
+There is also an additional ```--data_path``` flag that can be passed to ```main.py``` for either mode. If you
+would like more control over all of the parameters in the model during ```inference``` and ```train``` modes,
+run the following command:
 
+```
+python main.py --config "user_config.yaml"
+```
+
+Where the ```user_config.yaml``` adjusts each of the parameters in the tool. Note that when using this flag,
+all other flags will be ignored if they are used together with the ```--config``` flag.
 
 
 ## Streamlit GUI
@@ -98,4 +106,7 @@ performing model. We can also add additional features to the model like:
 - Validation data support during training
 - Distributed cluster training
 - Benchmarking model metrics
-- Adding a config.yaml from the user as an commmand line argument
+
+Note, the scripts directory includes some experimental work for synthetically generating data from images
+which can be derived from the pdfs. There is an example of image of labeling using ChatGPT. This
+will be crucial in improving model performance.
