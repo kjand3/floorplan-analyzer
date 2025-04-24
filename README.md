@@ -105,7 +105,8 @@ performing model. We can also add additional features to the model like:
 
 - Validation data support during training
 - Distributed cluster training
-- Benchmarking model metrics
+- Test Mode or benchmarking model metrics
+- Containerization for Kubernetes orchestration
 
 Note, the scripts directory includes some experimental work for synthetically generating data from images
 which can be derived from the pdfs. There is an example of image of labeling using ChatGPT. This
