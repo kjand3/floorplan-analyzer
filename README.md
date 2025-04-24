@@ -105,6 +105,7 @@ With this structure, all of the visual data will be contained in the ```floorpla
 There is still a lot of work needed around labeled dataset generation and compilation to build a stronger
 performing model. We can also add additional features to the model like:
 
+- Increased model support like: YOLO, VisionTransformer(ViT), ...
 - Validation data support during training
 - Distributed cluster training
 - Test Mode or benchmarking model metrics
