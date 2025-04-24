@@ -22,6 +22,13 @@ class ImageHandler(BaseDataHandler):
             image = Image.open(file)
             if image.mode != "RGB":
                 image = image.convert("RGB")
-            processed_data.append({"filename": file, "image": image})
+            processed_data.append(
+                {
+                    "filename": file,
+                    "image": image,
+                    "width": image.size[0],
+                    "height": image.size[1],
+                }
+            )
 
         return processed_data

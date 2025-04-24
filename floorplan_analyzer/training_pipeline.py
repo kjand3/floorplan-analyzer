@@ -8,6 +8,7 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from floorplan_analyzer.config.settings import TrainerConfig
+from floorplan_analyzer.data_processing.training_dataset import collate_fn
 
 
 class TrainingPipeline:
@@ -35,20 +36,22 @@ class TrainingPipeline:
 
         logging.info("Starting model training...")
 
-        data_loader = DataLoader(data, batch_size=self.config.batch_size, shuffle=True)
+        data_loader = DataLoader(
+            data, batch_size=self.config.batch_size, shuffle=True, collate_fn=collate_fn
+        )
 
         self.model.train()
         for epoch in tqdm(range(self.config.total_epochs)):
-            for idx, batch in enumerate(data_loader):
+            for _, batch in enumerate(data_loader):
 
-                images = batch[0][0]
-                targets = {
-                    "boxes": batch[1]["boxes"][0],
-                    "labels": batch[1]["labels"][0],
-                }
+                images = batch[0]
+                targets = [
+                    {"boxes": bbox, "labels": label}
+                    for bbox, label in zip(batch[1][0], batch[1][1])
+                ]
 
                 self.optimizer.zero_grad()
-                loss_data = self.model([images], [targets])
+                loss_data = self.model(images, targets)
 
                 loss_classifier = loss_data["loss_classifier"]
                 loss_box_reg = loss_data["loss_box_reg"]

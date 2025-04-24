@@ -4,8 +4,27 @@ import numpy as np
 import pandas as pd
 import torch
 from PIL import Image
+from torch import Tensor
 from torch.utils.data import Dataset
 from torchvision import transforms
+
+
+def collate_fn(batch: list[Tensor]) -> tuple[Image.Image, tuple[Tensor, Tensor]]:
+    """
+    custom collate function for
+    multiple bounding boxes
+
+    ref: ChatGPT
+    """
+    images = []
+    boxes = []
+    labels = []
+
+    for image, target in batch:
+        images.append(image)
+        boxes.append(target["boxes"])
+        labels.append(target["labels"])
+    return images, (boxes, labels)
 
 
 class TrainingDataset(Dataset):
@@ -27,13 +46,13 @@ class TrainingDataset(Dataset):
         image_fn = self.images[index]["filename"]
         image = self.images[index]["image"]
         matches = self.bbox_data.loc[self.bbox_data["filename"] == image_fn]
-        boxes = torch.from_numpy(np.array(matches[["x1", "y1", "x2", "y2"]]))
+        bboxes = torch.from_numpy(np.array(matches[["x1", "y1", "x2", "y2"]]))
         labels = torch.from_numpy(np.array(matches[["label"]])).view(-1)
-
         target = {
-            "boxes": boxes,
+            "boxes": bboxes,
             "labels": labels,
         }
 
         image = self.image_to_tensor(image)
+
         return image, target

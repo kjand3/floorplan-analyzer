@@ -39,7 +39,7 @@ class ModelConfig(BaseSettings):
 class TrainerConfig(BaseSettings):
     total_epochs: int = Field(default=2, description="Number of training epochs")
     optimizer: str = Field(default="adam", description="Model training optimizer")
-    batch_size: int = Field(default=1, description="Batch size")
+    batch_size: int = Field(default=2, description="Batch size")
     learning_rate: float = Field(
         default=0.0001, description="Learning rate for training"
     )

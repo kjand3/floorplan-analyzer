@@ -49,9 +49,6 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(prog="Floorplan Analyzer")
     parser.add_argument("--data_path", type=str, help="Data path for model inferencing")
-    parser.add_argument(
-        "--config_file", type=str, help="Configuration file for analysis"
-    )
     parser.add_argument("--mode", type=str, help="Mode for running tool")
 
     args = parser.parse_args()

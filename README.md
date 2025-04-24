@@ -87,6 +87,15 @@ With this structure, all of the visual data will be contained in the ```floorpla
 | file1.png |   250    |   200    |   270    |    220   |   Chair  |
 | file2.pdf |   400    |   200    |   420    |    220   |   Plant  |
 
-
-
 ```
+
+
+# Future Work and Remarks
+
+There is still a lot of work needed around labeled dataset generation and compilation to build a stronger
+performing model. We can also add additional features to the model like:
+
+- Validation data support during training
+- Distributed cluster training
+- Benchmarking model metrics
+- Adding a config.yaml from the user as an commmand line argument
