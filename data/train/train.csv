@@ -1,0 +1,13 @@
+,x1,y1,x2,y2,object,filename,label
+0,550,159,720,209,Sofa,data/train/floorplans/3d4.png,0
+1,170,146,320,196,DiningTable,data/train/floorplans/3d4.png,1
+2,700,272,870,322,Bed,data/train/floorplans/3d4.png,2
+3,850,63,950,126,Bathroom,data/train/floorplans/3d4.png,3
+4,270,117,430,167,Kitchen,data/train/floorplans/3d4.png,4
+5,450,272,570,310,Desk,data/train/floorplans/3d4.png,5
+6,950,188,1000,272,Plants,data/train/floorplans/3d4.png,6
+7,390,222,460,251,CoffeeTable,data/train/floorplans/3d4.png,7
+8,170,59,290,92,Closet,data/train/floorplans/3d4.png,8
+9,940,146,1000,271,Balcony,data/train/floorplans/3d4.png,9
+10,200,100,300,160,Bed,data/train/floorplans/3d1.pdf,10
+11,400,200,480,260,Sofa,data/train/floorplans/3d1.pdf,11

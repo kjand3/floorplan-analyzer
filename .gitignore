@@ -1,0 +1,8 @@
+
+
+venv/
+.env
+.DS_Store
+*.py[cod]
+model_output_path
+results_output/

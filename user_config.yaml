@@ -1,0 +1,21 @@
+mode: inference
+
+mod_config:
+  pretrained: true
+
+data_config:
+  raw_data_path: "data/train/floorplans/"
+  file_format: "pdf"
+  bbox_data_file: "data/train/train.csv"
+
+trainer_config:
+  total_epochs: 2
+  optimizer: "adam"
+  batch_size: 2
+  learning_rate: 0.0001
+  model_output_path: "model_output_path"
+
+inference_config:
+  label_mapping_file: "floorplan_analyzer/config/label_definition.json"
+  trained_model_path: null
+  results_output_path: "results_output/"
